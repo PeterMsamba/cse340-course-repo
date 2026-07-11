@@ -76,3 +76,54 @@ VALUES
 (3, 'Charity Coat Sorting Grid', 'Categorizing donated winter coats by size and fabric grade.', 'Unity Warehouse Room B', '2026-09-22'),
 (3, 'Holiday Gift Wrapping Drive', 'Wrapping present packages for children in shelter housing networks.', 'Civic Center Hall', '2026-12-05');
 
+
+-- ==========================================================================
+-- 1. Create the Category Table
+-- ==========================================================================
+CREATE TABLE public.category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- ==========================================================================
+-- 2. Create the Junction Table (project_category) for Many-to-Many Relationship
+-- ==========================================================================
+CREATE TABLE public.project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES public.project(project_id) ON DELETE CASCADE,
+    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES public.category(category_id) ON DELETE CASCADE
+);
+
+-- ==========================================================================
+-- 3. Insert Initial Categories
+-- ==========================================================================
+INSERT INTO public.category (name) 
+VALUES 
+('Community Service'), 
+('Educational'), 
+('Environmental'), 
+('Health and Wellness');
+
+-- ==========================================================================
+-- 4. Associate Each Existing Project with At Least One Category
+-- (Assuming your 15 sample projects have project_ids 1 through 15)
+-- ==========================================================================
+INSERT INTO public.project_category (project_id, category_id)
+VALUES
+(1, 1),  -- Project 1 -> Community Service
+(2, 1),  -- Project 2 -> Community Service
+(3, 1),  -- Project 3 -> Community Service
+(4, 1),  -- Project 4 -> Community Service
+(5, 1),  -- Project 5 -> Community Service
+(6, 1),  -- Project 6 -> Community Service (Food Drive)
+(7, 3),  -- Project 7 -> Environmental (Soil Turning)
+(8, 3),  -- Project 8 -> Environmental (Irrigation Setup)
+(9, 3),  -- Project 9 -> Environmental (Fruit Tree Pruning)
+(10, 3), -- Project 10 -> Environmental (Winter Prep)
+(11, 2), -- Project 11 -> Educational (Tutoring)
+(12, 4), -- Project 12 -> Health and Wellness (Senior Meals)
+(13, 2), -- Project 13 -> Educational (Backpacks)
+(14, 1), -- Project 14 -> Community Service (Coat Sorting)
+(15, 1); -- Project 15 -> Community Service (Gift Wrapping)
