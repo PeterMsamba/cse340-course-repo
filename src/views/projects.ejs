@@ -12,14 +12,15 @@
                   month: 'long', 
                   day: 'numeric', 
                   year: 'numeric',
-                  timeZone: 'UTC' /* Prevents timezone day shift bugs */
+                  timeZone: 'UTC' 
               }) %>:
             </strong>
-            <%= project.title %> 
-            <span>(<%= project.organization_name %>)</span>
+            <a href="/project/<%= project.project_id %>"><%= project.title %></a> 
+            
+            <span>(<a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>)</span>
             
             <p style="margin: 0.5rem 0 0 0; font-size: 0.95rem; font-weight: normal; color: var(--text-muted);">
-              <em>Location:</em> <%= project.location %> — <%= project.description %>
+              <em>Location:</em> <%= project.location %>
             </p>
           </li>
         <% }) %>
