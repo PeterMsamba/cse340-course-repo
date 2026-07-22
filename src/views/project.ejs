@@ -1,10 +1,10 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-
+    
     <div class="project-details">
         <p><strong>Description:</strong> <%= project.description %></p>
-
+        
         <p><strong>Date:</strong> 
             <%= new Date(project.date).toLocaleDateString('en-US', { 
                 month: 'long', 
@@ -13,11 +13,21 @@
                 timeZone: 'UTC' 
             }) %>
         </p>
-
+        
         <p><strong>Location:</strong> <%= project.location %></p>
-
+        
         <p><strong>Sponsoring Partner:</strong> 
             <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
+        </p>
+
+        <p><strong>Categories:</strong>
+            <% if (categories && categories.length > 0) { %>
+                <% categories.forEach((category, index) => { %>
+                    <a href="/category/<%= category.category_id %>" class="category-tag"><%= category.name %></a><%= index < categories.length - 1 ? ', ' : '' %>
+                <% }) %>
+            <% } else { %>
+                <span>Uncategorized</span>
+            <% } %>
         </p>
     </div>
 </main>
