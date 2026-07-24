@@ -5,9 +5,15 @@ import { showProjectsPage, showProjectDetailsPage } from './controllers/projects
 import { showCategoriesPage, showCategoryDetailsPage } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationsPage, showOrganizationDetailsPage } from './controllers/organizations.js';
+import { showNewOrganizationForm } from './controllers/organizations.js';
+import { processNewOrganizationForm } from './controllers/organizations.js';
 
 const router = express.Router();
 
+// Route for new organization page
+router.get('/new-organization', showNewOrganizationForm);
+// Route to handle new organization form submission
+router.post('/new-organization', processNewOrganizationForm);
 router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/projects', showProjectsPage);
